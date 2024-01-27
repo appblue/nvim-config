@@ -48,10 +48,10 @@ local plugins = {
   },
 
   -- To make a plugin not be loaded
-  {
-    "NvChad/nvim-colorizer.lua",
-    enabled = false
-  },
+  -- {
+  --   "NvChad/nvim-colorizer.lua",
+  --   enabled = false
+  -- },
 
   {
     "hrsh7th/nvim-cmp",

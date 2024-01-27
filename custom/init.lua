@@ -5,6 +5,19 @@
 --   pattern = "*",
 --   command = "tabdo wincmd =",
 -- })
+
+vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
+  pattern = {'*.nim', },
+  -- command = 'set shiftwidth=4',
+  callback = function ()
+    vim.lsp.start({
+      name='nimlsp',
+      cmd={'/home/kris/.nimble/bin/nimlsp'},
+      root_dir='~'
+    })
+    vim.lsp.buf_attach_client(0, 1)
+  end
+})
 vim.opt.guicursor = ""
 
 vim.cmd([[
