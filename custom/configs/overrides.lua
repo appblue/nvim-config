@@ -113,7 +113,7 @@ M.cmp = {
     autocomplete = false,
   },
   mapping = {
-    ["S-Tab"] = require("cmp").mapping.complete(),
+    ["<S-Tab>"] = require("cmp").mapping.complete(),
   }
 }
 
