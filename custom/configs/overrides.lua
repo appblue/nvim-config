@@ -57,11 +57,11 @@ M.nvimtree = {
       web_devicons = {
         file = {
           enable = true,
-          color = true,
+          color = false,
         },
         folder = {
-          enable = false,
-          color = true,
+          enable = true,
+          color = false,
         },
       },
       git_placement = "before",
@@ -69,7 +69,7 @@ M.nvimtree = {
       diagnostics_placement = "signcolumn",
       bookmarks_placement = "signcolumn",
       padding = " ",
-      symlink_arrow = " ➛ ",
+      symlink_arrow = "->",
       show = {
         file = true,
         folder = true,
