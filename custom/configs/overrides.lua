@@ -111,6 +111,9 @@ M.nvimtree = {
 M.cmp = {
   completion = {
     autocomplete = false,
+  },
+  mapping = {
+    ["S-Tab"] = require("cmp").mapping.complete(),
   }
 }
 
