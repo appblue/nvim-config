@@ -19,7 +19,6 @@ return {
 --       colorscheme = "gruvbox",
 --     },
 --   },
-
   -- change trouble config
   {
     "folke/trouble.nvim",
@@ -28,7 +27,7 @@ return {
   },
 
   -- disable trouble
-  { "folke/trouble.nvim", enabled = false },
+  -- { "folke/trouble.nvim", enabled = false },
 
   -- override nvim-cmp and add cmp-emoji
   {
@@ -51,6 +50,16 @@ return {
         function() require("telescope.builtin").find_files({ cwd = require("lazy.core.config").options.root }) end,
         desc = "Find Plugin File",
       },
+      {
+        "<leader>ds",
+        function() require("telescope.builtin").lsp_document_symbols() end,
+        desc = "LSP: [D]ocument [S]ymbols",
+      },
+      {
+        "<leader>ws",
+        function() require("telescope.builtin").lsp_dynamic_workspace_symbols() end,
+        desc = "LSP: [W]orkspace [S]ymbols",
+      }
     },
     -- change some options
     opts = {
@@ -154,25 +163,46 @@ return {
   },
 
   -- the opts function can also be used to change the default opts:
-  {
-    "nvim-lualine/lualine.nvim",
-    event = "VeryLazy",
-    opts = function(_, opts)
-      table.insert(opts.sections.lualine_x, "😄")
-    end,
-  },
+  -- {
+  --   "nvim-lualine/lualine.nvim",
+  --   event = "VeryLazy",
+  --   opts = function(_, opts)
+  --     table.insert(opts.sections.lualine_x, "😄")
+  --   end,
+  -- },
 
   -- or you can return new options to override all the defaults
   {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
-    opts = function()
+    opts = function(_, opts)
       return {
-        --[[add your custom lualine config here]]
       }
     end,
   },
 
+--   {
+--   "nvim-lualine/lualine.nvim",
+--   optional = true,
+--
+--   opts = function(_, opts)
+--     table.insert(opts.sections.lualine_x, {
+--       function()
+--         local status = require("ollama").status()
+--
+--         if status == "IDLE" then
+--           return "󱙺" -- nf-md-robot-outline
+--         elseif status == "WORKING" then
+--           return "󰚩" -- nf-md-robot
+--         end
+--       end,
+--       cond = function()
+--         return package.loaded["ollama"] and require("ollama").status() ~= nil
+--       end,
+--     })
+--   end,
+-- },
+--
   -- use mini.starter instead of alpha
   { import = "lazyvim.plugins.extras.ui.mini-starter" },
 

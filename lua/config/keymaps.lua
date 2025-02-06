@@ -36,3 +36,7 @@ local opts = { noremap = true, silent = true }
 for _, mapping in ipairs(mappings) do
   vim.keymap.set(mapping[1], mapping[2], mapping[3], opts)
 end
+
+vim.keymap.set("n", "<space>ZZ", ":source %<CR>")
+vim.keymap.set("n", "<space>z", ":.lua<CR>")
+vim.keymap.set("v", "<space>z", ":lua<CR>")
