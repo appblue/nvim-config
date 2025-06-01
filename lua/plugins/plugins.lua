@@ -8,17 +8,34 @@
 -- * add extra plugins
 -- * disable/enabled LazyVim plugins
 -- * override the configuration of LazyVim plugins
+
+-- Define a function to check that ollama is installed and working
+local function get_condition()
+    return package.loaded["ollama"] and require("ollama").status ~= nil
+end
+
+-- Define a function to check the status and return the corresponding icon
+local function get_status_icon()
+  local status = require("ollama").status()
+
+  if status == "IDLE" then
+    return "💚"
+  elseif status == "WORKING" then
+    return "🔴"
+  end
+end
+
 return {
   -- add gruvbox
   { "ellisonleao/gruvbox.nvim" },
 
   -- Configure LazyVim to load gruvbox
---   {
---     "LazyVim/LazyVim",
---     opts = {
---       colorscheme = "gruvbox",
---     },
---   },
+  --   {
+  --     "LazyVim/LazyVim",
+  --     opts = {
+  --       colorscheme = "gruvbox",
+  --     },
+  --   },
   -- change trouble config
   {
     "folke/trouble.nvim",
@@ -52,14 +69,18 @@ return {
       },
       {
         "<leader>ds",
-        function() require("telescope.builtin").lsp_document_symbols() end,
+        function()
+          require("telescope.builtin").lsp_document_symbols()
+        end,
         desc = "LSP: [D]ocument [S]ymbols",
       },
       {
         "<leader>ws",
-        function() require("telescope.builtin").lsp_dynamic_workspace_symbols() end,
+        function()
+          require("telescope.builtin").lsp_dynamic_workspace_symbols()
+        end,
         desc = "LSP: [W]orkspace [S]ymbols",
-      }
+      },
     },
     -- change some options
     opts = {
@@ -176,33 +197,33 @@ return {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
     opts = function(_, opts)
-      return {
-      }
+      table.insert(opts.sections.lualine_x, { get_status_icon, get_condition })
+      -- print(vim.inspect(opts))
     end,
   },
 
---   {
---   "nvim-lualine/lualine.nvim",
---   optional = true,
---
---   opts = function(_, opts)
---     table.insert(opts.sections.lualine_x, {
---       function()
---         local status = require("ollama").status()
---
---         if status == "IDLE" then
---           return "󱙺" -- nf-md-robot-outline
---         elseif status == "WORKING" then
---           return "󰚩" -- nf-md-robot
---         end
---       end,
---       cond = function()
---         return package.loaded["ollama"] and require("ollama").status() ~= nil
---       end,
---     })
---   end,
--- },
---
+  --   {
+  --   "nvim-lualine/lualine.nvim",
+  --   optional = true,
+  --
+  --   opts = function(_, opts)
+  --     table.insert(opts.sections.lualine_x, {
+  --       function()
+  --         local status = require("ollama").status()
+  --
+  --         if status == "IDLE" then
+  --           return "󱙺" -- nf-md-robot-outline
+  --         elseif status == "WORKING" then
+  --           return "󰚩" -- nf-md-robot
+  --         end
+  --       end,
+  --       cond = function()
+  --         return package.loaded["ollama"] and require("ollama").status() ~= nil
+  --       end,
+  --     })
+  --   end,
+  -- },
+  --
   -- use mini.starter instead of alpha
   { import = "lazyvim.plugins.extras.ui.mini-starter" },
 
@@ -218,7 +239,7 @@ return {
         "shellcheck",
         "shfmt",
         "flake8",
-        "black"
+        "black",
       },
     },
   },

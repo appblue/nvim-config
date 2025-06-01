@@ -45,6 +45,25 @@ return {
         input_label = "> ",
         action = "display_insert",
       },
+      Generate_Description = {
+        prompt = "Generate text with polished english language describing the issue/problem/statement: $input\n\n"
+          .. "Respond EXACTLY in this format:\n```$ftype\n<your code>\n```",
+        input_label = "> ",
+        action = "display_insert",
+      },
+      Followup_Email = {
+        prompt = "Write a follow-up to my email, taking into consideration following points: $input\n\n. Generate response according to the following instructions 1 - 3:\n\n"
+          .. "1. Summarize the email body in 1-2 sentences.\n"
+          .. "2. Summarize the key outcomes for followup,\n"
+          .. "3. Always Format the response according to the specified: Example Format.\n\n"
+          .. "Example Format:\n\n"
+          .. "Summary: [Summary]\n\n"
+          .. "Followup: [Followup]\n\n"
+          .. "The email thread is below:\n\n"
+          .. "$buf",
+        input_label = "> ",
+        action = "display_insert",
+      },
     },
   },
 }
